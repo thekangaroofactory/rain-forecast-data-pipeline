@@ -6,25 +6,32 @@
 #' @param station the code of the station (default = Sydney)
 #' @param check a logical to indicate if it should check for missing observations
 #'
-#' @return a JSON object (containing the list of raw files & info)
+#' @return a data.frame containing the list of raw files & info
 #'
 #' @examples observations()
 
-raw_observations <- function(path = ".", station = "IDCJDW2124", check = FALSE){
+raw_observations <- function(path = ".", 
+                             station = "IDCJDW2124", 
+                             year = NULL, 
+                             month = NULL, 
+                             check = FALSE){
   
   # -- download new observation file(s)
   if(check)
     check_observations(path, station)
   
+  # -- build pattern
+  pattern <- station
+  if(!is.null(year) & !is.null(month))
+    pattern <- paste(pattern, paste0(year, month), sep = ".")
+  cat("Search pattern =", pattern, "\n")
+    
   # -- list files & info
-  observations <- file.info(list.files(path, pattern = station, full.names = T))
+  observations <- file.info(list.files(path, pattern = pattern, full.names = T))
   observations$filename <- basename(row.names(observations))
+  cat("Nb file(s) found =", nrow(observations), "\n")
   
-  # -- check size
-  if(nrow(observations) == 0)
-    cat("[INFO] No file has been found! -- returning empty json \n")
-  
-  # -- make json from df & return
-  jsonify::to_json(observations)
+  # -- return
+  observations
   
 }
