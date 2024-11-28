@@ -23,7 +23,8 @@ function(res, station = "IDCJDW2124", check = FALSE){
     return(list(error = "Resource not found"))}
   
   # -- return (df as json)
-  jsonify::to_json(observations)
+  #jsonify::to_json(observations)
+  observations
   
 }
 

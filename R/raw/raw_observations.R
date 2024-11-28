@@ -27,9 +27,15 @@ raw_observations <- function(path = ".",
   cat("Search pattern =", pattern, "\n")
     
   # -- list files & info
-  observations <- file.info(list.files(path, pattern = pattern, full.names = T))
-  observations$filename <- basename(row.names(observations))
-  cat("Nb file(s) found =", nrow(observations), "\n")
+  file_info <- file.info(list.files(path, pattern = pattern, full.names = T))
+  file_info$filename <- basename(row.names(file_info))
+  cat("Nb file(s) found =", nrow(file_info), "\n")
+  
+  # -- prepare output
+  # the data.frame output of file.info does not work with jsonlite::toJSON
+  observations <- data.frame(filename = file_info$filename,
+                             size = file_info$size,
+                             mtime = file_info$mtime)
   
   # -- return
   observations

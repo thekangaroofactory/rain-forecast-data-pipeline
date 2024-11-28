@@ -4,7 +4,7 @@
 # --
 
 # -- init & source code
-for(nm in list.files("R", full.names = T))
+for(nm in list.files("R", full.names = T, recursive = T))
   source(nm)
 rm(nm)
 
