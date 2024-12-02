@@ -23,6 +23,10 @@ import_into_technical <- function(data){
   # -- init connection
   con <- db_connect()
   
+  # -- check table
+  if(!"technical" %in% DBI::dbListTables(con))
+    create_technical_table(con, table = "technical", data)
+  
   
   # -- get existing rows (Station & Date)
   date_string <- paste(data$date, collapse = "', '")

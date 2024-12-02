@@ -36,9 +36,15 @@ format_raw_file <- function(path = ".", filename){
   # ---------------------------------------------------
   # Add columns
   
+  # -- compute internal id
+  prefix <- data.frame(id = ktools::seq_timestamp(n = nrow(data)))
+  
   # -- station to keep track (get value from filename)
-  data$station <- unlist(strsplit(filename, split = ".", fixed = T))[1]
-  data$location <- unlist(stations[data$station])
+  prefix$station <- unlist(strsplit(filename, split = ".", fixed = T))[1]
+  prefix$location <- unlist(stations[prefix$station])
+  
+  # -- merge prefix
+  data <- cbind(prefix, data)
   
   # return
   data
