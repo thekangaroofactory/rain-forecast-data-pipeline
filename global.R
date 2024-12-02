@@ -1,4 +1,28 @@
 
+# -- 
+# This is the global param file
+# --
+
+# -- init & source code
+for(nm in list.files("R", full.names = T, recursive = T))
+  source(nm)
+rm(nm)
+
+
+# -- define path
+path <- list(raw = "E:/Datasets/rain-forecast/raw",
+             schema = "E:/Datasets/rain-forecast/schemas",
+             model = "E:/Datasets/rain-forecast/models")
+
+
+# -- filenames
+file <- list (dataset_report = "dataset_report.json",
+              mapping_Location = "location_mapping.csv",
+              means_by_location = "means_by_location.csv")
+
+
+
+
 
 # -- colClasses (as per read.csv output)
 colClasses_raw <- c("X" = "character",
@@ -24,29 +48,6 @@ colClasses_raw <- c("X" = "character",
                     "X3pm.wind.speed..km.h." = "character",
                     "X3pm.MSL.pressure..hPa." = "numeric")
 
-
-# -- colnames (rename after read.csv)
-# cols_technical <- c('Date',
-#                     'MinTemp', 
-#                     'MaxTemp',
-#                     'Rainfall',
-#                     'Evaporation',
-#                     'Sunshine',
-#                     'WindGustDir',
-#                     'WindGustSpeed',
-#                     'WindGustTime',
-#                     'Temp9am',
-#                     'Humidity9am',
-#                     'Cloud9am',
-#                     'WindDir9am',
-#                     'WindSpeed9am',
-#                     'Pressure9am',
-#                     'Temp3pm',
-#                     'Humidity3pm',
-#                     'Cloud3pm',
-#                     'WindDir3pm',
-#                     'WindSpeed3pm',
-#                     'Pressure3pm')
 
 # -- colnames (rename after read.csv)
 # lower_case_with_underscores to be compliant with PostgreSQL naming convention
@@ -75,5 +76,4 @@ cols_technical <- c('date',
 # -- station / location list
 stations <- list(
   "IDCJDW2124" = "Sydney")
-
 
