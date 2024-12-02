@@ -38,7 +38,7 @@ format_raw_file <- function(path = ".", filename){
   
   # -- station to keep track (get value from filename)
   data$station <- unlist(strsplit(filename, split = ".", fixed = T))[1]
-  data$location <- stations[data$station]
+  data$location <- unlist(stations[data$station])
   
   # return
   data
