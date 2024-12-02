@@ -1,7 +1,7 @@
 
 
 
-feat_engineer_v1 <- function(x){
+feat_engineer_v1 <- function(x, model_name = "M1"){
 
   cat("Start feature engineering \n")
   
@@ -9,14 +9,14 @@ feat_engineer_v1 <- function(x){
   # Feature Engineering Parameters
   
   # -- columns to drop
-  list_remove <- c('wind_gust_time')
+  list_remove <- c('wind_gust_time', 'station')
   
   
   # ----------------------------------------------------------------------------
   # Load dataset report (schema)
   
   cat("- Load dataset schema \n")
-  json_report_url <- file.path(path$schema, model, file$dataset_report)
+  json_report_url <- file.path(path$schema, model_name, file$dataset_report)
   data_schema <- jsonlite::fromJSON(json_report_url)
   
   # -------------------------------------
@@ -48,7 +48,7 @@ feat_engineer_v1 <- function(x){
   # Load mean by location report
   
   cat("- Load mean by location report \n")
-  mean_by_location_url <- file.path(path$schema, model, file$means_by_location)
+  mean_by_location_url <- file.path(path$schema, model_name, file$means_by_location)
   mean_by_loc_df <- read.csv(mean_by_location_url, sep = ',')
   
   
@@ -177,6 +177,6 @@ feat_engineer_v1 <- function(x){
   # -------------------------------------
   # return
   
-  x[1:dim(x)[1]-1, ]
+  x[1:nrow(x) - 1, ]
   
 }
