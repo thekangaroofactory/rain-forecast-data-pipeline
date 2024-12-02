@@ -1,7 +1,7 @@
 
 
 # -- init environment ----
-source("./global.R")
+# source("./global.R")
 
 # -- plumber.R ----
 # This is the definition of the API endpoints
