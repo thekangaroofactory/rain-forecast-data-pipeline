@@ -8,13 +8,14 @@
 #'
 #' @examples create_technical_table(data)
 
-create_table <- function(con, table, data){
+check_table <- function(con, table, data){
 
   # -- create table
   # based on data.frame column names & types
-  DBI::dbCreateTable(conn = con, name = table, data)
+  if(!table %in% DBI::dbListTables(con))
+    DBI::dbCreateTable(conn = con, name = table, data)
   
   # -- check & return
-  success <- table %in% DBI::dbListTables(con)
+  table %in% DBI::dbListTables(con)
   
 }
