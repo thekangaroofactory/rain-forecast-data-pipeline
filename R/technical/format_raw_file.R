@@ -16,6 +16,10 @@ format_raw_file <- function(path = ".", filename){
   cat("Processing raw file:", filename, "\n")
   data <- read.csv(file.path(path, filename), header = TRUE, colClasses = colClasses_raw, skip = 8, encoding = "ANSI")
   
+  # -- get station from filename
+  station <- unlist(strsplit(filename, split = ".", fixed = T))[1]
+  
+  
   # ---------------------------------------------------
   # Drop & Rename Columns
   
@@ -36,14 +40,14 @@ format_raw_file <- function(path = ".", filename){
   # ---------------------------------------------------
   # Add columns
   
-  # -- compute internal id
-  prefix <- data.frame(id = ktools::seq_timestamp(n = nrow(data)))
+  # -- compute observation id, station, location
+  # prefix <- data.frame(id = ktools::seq_timestamp(n = nrow(data)))
+  prefix <- data.frame(
+    observation_id = paste(station, gsub('-', '', data$date), sep = "_"),
+    station = station,
+    location = unlist(stations[station]))
   
-  # -- station to keep track (get value from filename)
-  prefix$station <- unlist(strsplit(filename, split = ".", fixed = T))[1]
-  prefix$location <- unlist(stations[prefix$station])
-  
-  # -- merge prefix
+  # -- merge columns
   data <- cbind(prefix, data)
   
   # return

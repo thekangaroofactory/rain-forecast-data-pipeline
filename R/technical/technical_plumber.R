@@ -5,6 +5,10 @@
 
 # -- plumber.R ----
 # This is the definition of the API endpoints
+#* @apiTitle Rain Forecast API
+#* @apiDescription Manage Observations
+#* @apiVersion 0.9
+
 
 #* Return the list of observations in the technical table
 #* @serializer json
