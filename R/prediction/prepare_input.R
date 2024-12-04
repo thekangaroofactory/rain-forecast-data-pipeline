@@ -46,7 +46,6 @@ prepare_input <- function(functional){
                              "temp_9am",
                              "temp_3pm",
                              "rain_today",
-                             "rain_tomorrow",
                              "month")
   
   # -- select and order df
@@ -70,18 +69,10 @@ prepare_input <- function(functional){
                    "Temp9am",
                    "Temp3pm",
                    "RainToday",
-                   "RainTomorrow",
                    "Month")
   
   # -- rename cols to fit with model input
   colnames(x) <- cols_rename
-  
-  # -- cast format
-  x$WindGustDir <- as.integer(x$WindGustDir)
-  x$WindDir9am <- as.integer(x$WindDir9am)
-  x$WindDir3pm <- as.integer(x$WindDir3pm)
-  x$RainToday <- as.integer(x$RainToday)
-  x$Month <- as.integer(x$Month)
   
   # -- return
   x
