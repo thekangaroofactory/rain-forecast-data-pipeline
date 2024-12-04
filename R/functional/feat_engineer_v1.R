@@ -172,6 +172,15 @@ feat_engineer_v1 <- function(x, model_name = "M1"){
                                                                               range_list[match(col, numerical_features)]))
   
   
+  # -------------------------------------
+  # -- cast format
+  x$wind_gust_dir <- as.integer(x$wind_gust_dir)
+  x$wind_dir_9am <- as.integer(x$wind_dir_9am)
+  x$wind_dir_3pm <- as.integer(x$wind_dir_3pm)
+  x$rain_today <- as.integer(x$rain_today)
+  x$month <- as.integer(x$month)
+  
+  
   cat("End feature Engineering \n")
   
   # -------------------------------------
