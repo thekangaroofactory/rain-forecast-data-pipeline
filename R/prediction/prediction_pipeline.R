@@ -1,18 +1,16 @@
 
 
 prediction_pipeline <- function(functional){
+
+  cat("Starting prediction pipeline \n")
   
-  # -- load model
-  target_url <- file.path(path$model, "rain_tomorrow_v1.h5")
-  model <- keras::load_model_hdf5(target_url)
+  # -- build predictions df
+  predictions <- make_predictions(name = "M1", functional)
+
+  # -- import / update db
+  import <- db_import("prediction", predictions)
   
-  # -- build predictions
-  predictions <- make_predictions(model, functional)
-  
-  # -- add model name to id
-  predictions$observation_id <- paste(predictions$observation_id, "M1", sep = "_")
-  
-  # -- return
-  predictions
-  
+  # -- keep only imported rows (create / update)
+  predictions[predictions$observation_id %in% import$row_ids, ]
+
 }

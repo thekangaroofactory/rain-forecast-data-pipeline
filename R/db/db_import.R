@@ -89,6 +89,7 @@ db_import <- function(table, data){
   DBI::dbDisconnect(con)
   
   # -- return
-  affected_rows
+  list(nb_imported_rows = affected_rows,
+       row_ids = data_to_import$observation_id)
   
 }

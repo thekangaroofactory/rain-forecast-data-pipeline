@@ -9,6 +9,13 @@ for(nm in list.files("R", full.names = T, recursive = T))
 rm(nm)
 
 
+#library(keras)
+
+#cat("  - Running local, init conda env \n")
+#reticulate::use_condaenv("r-reticulate", required = TRUE)
+
+
+
 # -- define path
 path <- list(raw = "E:/Datasets/rain-forecast/raw",
              schema = "E:/Datasets/rain-forecast/schemas",

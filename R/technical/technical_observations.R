@@ -26,9 +26,12 @@ technical_observations <- function(station = "IDCJDW2124", start, end){
   # -- execute query
   observations <- DBI::dbGetQuery(con, query)
   
+  # -- close connection
+  DBI::dbDisconnect(con)
+  
   # -- check output
   if(nrow(observations) == 0)
-    cat("[INFO] No observations have been retrieved \n")
+    cat("[INFO] No observation has been retrieved \n")
   else
     cat(nrow(observations), "observation(s) have been retrieved \n")
   

@@ -3,7 +3,7 @@
 # -- plumber.R ----
 # This is the definition of the API endpoints
 #* @apiTitle Rain Forecast API
-#* @apiDescription Manage Observations
+#* @apiDescription Manage Observations & Predictions
 #* @apiVersion 0.9
 
 
@@ -14,6 +14,7 @@
 #* @param station The code of the weather station (default code is Sydney)
 #* @param check A logical if it should check for new observations
 #* @get api/v1/raw-observations
+#* @tag Raw
 
 function(res, station = "IDCJDW2124", check = FALSE){
   
@@ -38,6 +39,7 @@ function(res, station = "IDCJDW2124", check = FALSE){
 #* @param month The month of the observation file
 #* @param check A logical if it should check for new observations
 #* @get api/v1/raw-observation
+#* @tag Raw
 
 function(res, station = "IDCJDW2124", year = format(Sys.Date(), "%Y"), 
          month = format(Sys.Date(), "%m"), check = FALSE){
@@ -74,10 +76,11 @@ function(res, station = "IDCJDW2124", year = format(Sys.Date(), "%Y"),
 #* @param start A date to indicate the start of the date range
 #* @param end A date to indicate the end of the date range
 #* @get api/v1/observations
+#* @tag Observations
 
 function(res, station = "IDCJDW2124", start = NA, end = NA){
   
-  cat("[API] Call to get technical observations \n")
+  cat("[API] Call to get observations \n")
   
   # -- get observations (all or date range)
   observations <- if(is.na(start) | is.na(end))
@@ -97,27 +100,64 @@ function(res, station = "IDCJDW2124", start = NA, end = NA){
 }
 
 
-#* Import raw observations
+#* Import Observations
 #* @serializer json
 #* @param station The code of the weather station (default code is Sydney)
 #* @param year The year of the observation file
 #* @param month The month of the observation file (must be two digits)
 #* @post api/v1/observations
+#* @tag Observations
 
 function(res, station = "IDCJDW2124", year = format(Sys.Date(), "%Y"), month = format(Sys.Date(), "%m")){
   
-  cat("[API] Call to import raw file into technical table \n")
+  cat("[API] Call to import raw observation file \n")
   
-  # -- build file name
-  filename <- paste0(station, ".", year, month, ".csv")
+  # -- technical pipeline
+  technical_df <- technical_pipeline(station, year, month)
   
-  # -- get formatted data
-  data <- format_raw_file(path = path$raw, filename)
-  
-  # -- import into db
-  nb_rows <- db_import("technical", data)
+  # -- check import
+  if(nrow(technical_df > 0)){
+    
+    # -- functional pipeline
+    functional_df <- functional_pipeline(technical_df)
+    
+    # -- prediction pipeline
+    if(nrow(functional_df) > 0)
+      prediction_df <- prediction_pipeline(functional_df)}
   
   # -- return
-  list(nb_imported_rows = nb_rows)
+  list(nb_imported_rows = nrow(technical_df))
+  
+}
+
+
+# -- Predictions ---------------------------------------------------------------
+
+#* Return the list of predictions
+#* @serializer json
+#* @param station The code of the weather station (default code is Sydney)
+#* @param start A date to indicate the start of the date range
+#* @param end A date to indicate the end of the date range
+#* @get api/v1/predictions
+#* @tag Predictions
+
+function(res, station = "IDCJDW2124", model = "M1", start = NA, end = NA){
+  
+  cat("[API] Call to get predictions \n")
+  
+  # -- get predictions (all or date range)
+  predictions <- if(is.na(start) | is.na(end))
+    raw_predictions(station = station, model = model)
+  else
+    raw_predictions(station = station, model = model, start = start, end = end)
+  
+  
+  # -- check output size
+  if(nrow(predictions) == 0){
+    res$status <- 404 # Not found
+    return(list(error = "Resource not found"))}
+  
+  # -- return
+  predictions
   
 }

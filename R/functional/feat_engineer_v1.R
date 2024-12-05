@@ -186,6 +186,6 @@ feat_engineer_v1 <- function(x, model_name = "M1"){
   # -------------------------------------
   # return
   
-  x[1:nrow(x) - 1, ]
+  x
   
 }

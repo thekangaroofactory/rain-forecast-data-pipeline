@@ -45,7 +45,7 @@ format_raw_file <- function(path = ".", filename){
   prefix <- data.frame(
     observation_id = paste(station, gsub('-', '', data$date), sep = "_"),
     station = station,
-    location = unlist(stations[station]))
+    location = stations[[station]])
   
   # -- merge columns
   data <- cbind(prefix, data)
