@@ -1,7 +1,7 @@
 
-# -- 
+# ------------------------------------------------------------------------------
 # This is the global param file
-# --
+# ------------------------------------------------------------------------------
 
 # -- init & source code
 for(nm in list.files("R", full.names = T, recursive = T))
@@ -9,17 +9,15 @@ for(nm in list.files("R", full.names = T, recursive = T))
 rm(nm)
 
 
-#library(keras)
-
-#cat("  - Running local, init conda env \n")
-#reticulate::use_condaenv("r-reticulate", required = TRUE)
-
-
-
 # -- define path
-path <- list(raw = "E:/Datasets/rain-forecast/raw",
-             schema = "E:/Datasets/rain-forecast/schemas",
-             model = "E:/Datasets/rain-forecast/models")
+# path <- list(raw = "E:/Datasets/rain-forecast/raw",
+#              schema = "E:/Datasets/rain-forecast/schemas",
+#              model = "E:/Datasets/rain-forecast/models")
+
+# -- define path (to mount for local run)
+path <- list(raw = "/home/data/raw",
+             schema = "/home/data/schemas",
+             model = "/home/data/models")
 
 
 # -- filenames
@@ -80,7 +78,7 @@ cols_technical <- c('date',
                     'wind_speed_3pm',
                     'pressure_3pm')
 
+
 # -- station / location list
 stations <- list(
   "IDCJDW2124" = "Sydney")
-
