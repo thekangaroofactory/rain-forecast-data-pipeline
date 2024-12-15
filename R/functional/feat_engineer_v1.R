@@ -66,16 +66,19 @@ feat_engineer_v1 <- function(x, model_name = "M1"){
   # -- add columns
   
   # -- rain_today
-  x$rain_today <- "No"
+  #x$rain_today <- "No"
   # -- check for cases where no rows meet condition
-  if(any(x$rain_fall > 0))
+  #if(any(x$rain_fall > 0))
     # -- use which to avoid pb with NA's
-    x[which(x$rain_fall > 0), ]$rain_today <- "Yes"
+    #x[which(x$rain_fall > 0), ]$rain_today <- "Yes"
   
   # -- rain_tomorrow
-  x$rain_tomorrow <- "No"
-  x[which(x$rain_today == 'Yes') - 1, ]$rain_tomorrow <- "Yes"
-  x[dim(x)[1], ]$rain_tomorrow <- "Na"
+  #x$rain_tomorrow <- "No"
+  #x[which(x$rain_today == 'Yes') - 1, ]$rain_tomorrow <- "Yes"
+  #x[dim(x)[1], ]$rain_tomorrow <- "Na"
+  
+  x$rain_today <- ifelse(x$rain_fall > 0, "Yes", "No")
+  x$rain_tomorrow <- x[match(x$date + 1, x$date), ]$rain_today
   
   
   # -- extract Month from Date
