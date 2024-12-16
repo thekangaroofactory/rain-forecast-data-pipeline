@@ -1,6 +1,6 @@
 
 
-prediction_pipeline <- function(functional){
+prediction_pipeline <- function(functional, incremental = TRUE){
 
   cat("Starting prediction pipeline \n")
   
@@ -11,6 +11,10 @@ prediction_pipeline <- function(functional){
   import <- db_import("prediction", predictions)
   
   # -- keep only imported rows (create / update)
-  predictions[predictions$observation_id %in% import$row_ids, ]
+  # unless incremental is turned off
+  if(incremental)
+    predictions[predictions$observation_id %in% import$row_ids, ]
+  else
+    predictions
 
 }

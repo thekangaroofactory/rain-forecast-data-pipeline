@@ -1,6 +1,7 @@
 
 
-technical_pipeline <- function(station = "IDCJDW2124", year = format(Sys.Date(), "%Y"), month = format(Sys.Date(), "%m")){
+technical_pipeline <- function(station = "IDCJDW2124", year = format(Sys.Date(), "%Y"), month = format(Sys.Date(), "%m"),
+                               incremental = TRUE){
   
   cat("Starting technical pipeline \n")
   
@@ -14,6 +15,10 @@ technical_pipeline <- function(station = "IDCJDW2124", year = format(Sys.Date(),
   import <- db_import("technical", technical)
   
   # -- keep only imported rows (create / update)
-  technical[technical$observation_id %in% import$row_ids, ]
+  # unless incremental is turned off
+  if(incremental)
+    technical[technical$observation_id %in% import$row_ids, ]
+  else
+    technical
   
 }

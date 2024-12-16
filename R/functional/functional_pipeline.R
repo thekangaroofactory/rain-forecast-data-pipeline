@@ -1,6 +1,6 @@
 
 
-functional_pipeline <- function(technical){
+functional_pipeline <- function(technical, incremental = TRUE){
   
   cat("Starting functional pipeline \n")
   
@@ -11,6 +11,10 @@ functional_pipeline <- function(technical){
   import <- db_import("functional", functional)
   
   # -- keep only imported rows (create / update)
-  functional[functional$observation_id %in% import$row_ids, ]
+  # unless incremental is turned off
+  if(incremental)
+    functional[functional$observation_id %in% import$row_ids, ]
+  else
+    functional
   
 }
