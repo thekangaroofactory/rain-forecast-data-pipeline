@@ -28,8 +28,8 @@ CMD ["plumber.R"]
 # docker build -t rain-forecast-api .
 
 # -- run docker image:
-# docker run -p 3838:3838 rain-forecast-api
+# docker run -p 8000:8000 rain-forecast-api
 
 # -- details in docker
-# set port 3838 (:3838)
+# set port 8000 (:8000)
 # set data mount, select folder, mapp on /home/data in 'container' field
