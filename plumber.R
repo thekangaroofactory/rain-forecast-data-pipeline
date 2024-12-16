@@ -108,25 +108,27 @@ function(res, station = "IDCJDW2124", start = NA, end = NA){
 #* @param station The code of the weather station (default code is Sydney)
 #* @param year The year of the observation file
 #* @param month The month of the observation file (must be two digits)
+#* @param incremental Should import be incremental
 #* @post api/v1/observations
 #* @tag Observations
 
-function(res, station = "IDCJDW2124", year = format(Sys.Date(), "%Y"), month = format(Sys.Date(), "%m")){
+function(res, station = "IDCJDW2124", year = format(Sys.Date(), "%Y"), month = format(Sys.Date(), "%m"),
+         incremental = TRUE){
   
   cat("[API] Call to import raw observation file \n")
   
   # -- technical pipeline
-  technical_df <- technical_pipeline(station, year, month)
+  technical_df <- technical_pipeline(station, year, month, incremental)
   
   # -- check import
   if(nrow(technical_df > 0)){
     
     # -- functional pipeline
-    functional_df <- functional_pipeline(technical_df)
+    functional_df <- functional_pipeline(technical_df, incremental)
     
     # -- prediction pipeline
     if(nrow(functional_df) > 0)
-      prediction_df <- prediction_pipeline(functional_df)}
+      prediction_df <- prediction_pipeline(functional_df, incremental)}
   
   # -- return
   list(nb_imported_rows = nrow(technical_df))
