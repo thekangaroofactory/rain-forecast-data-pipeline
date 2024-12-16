@@ -1,7 +1,7 @@
 
 
 
-feat_engineer_v1 <- function(x, model_name = "M1"){
+feat_engineer_v1 <- function(x, model_name = "M1", verbose = FALSE){
 
   cat("Start feature engineering \n")
   
@@ -55,7 +55,7 @@ feat_engineer_v1 <- function(x, model_name = "M1"){
   # ----------------------------------------------------------------------------
   # Feature engineering
   
-  cat("Apply feature engineering: \n")
+  cat("Apply feature engineering \n")
   
   # -------------------------------------
   # -- drop columns
@@ -82,7 +82,7 @@ feat_engineer_v1 <- function(x, model_name = "M1"){
   
   
   # -- extract Month from Date
-  cat("- extract Month from Date \n")
+  if(verbose) cat("- extract Month from Date \n")
   x['month'] <- format(x$date, "%m")
   x['date'] <- NULL
   
@@ -90,7 +90,7 @@ feat_engineer_v1 <- function(x, model_name = "M1"){
   # -------------------------------------
   # -- Categorical features  
   # -- Fill values out of schema with unknown
-  cat("- Fill categorical values out of schema \n")
+  if(verbose) cat("- Fill categorical values out of schema \n")
   if(any(!x$wind_gust_dir %in% category_list[[2]]))
     x[!x$wind_gust_dir %in% category_list[[2]], ]$wind_gust_dir <- "UNK"
   if(any(!x$wind_dir_9am %in% category_list[[3]]))
@@ -100,7 +100,7 @@ feat_engineer_v1 <- function(x, model_name = "M1"){
   
   # -- Index categorical features 
   # (remove 1 because python started at 0...)
-  cat("- Index categorical features \n")
+  if(verbose) cat("- Index categorical features \n")
   
   # -- wind
   x$wind_gust_dir <- match(x$wind_gust_dir, c("UNK", category_list[[2]])) - 1
@@ -132,7 +132,7 @@ feat_engineer_v1 <- function(x, model_name = "M1"){
   # -- Fill NaN values
   fill_nan <- function(col){
     
-    cat("   * Dealing with column:", col, "\n")
+    if(verbose) cat("   * Dealing with column:", col, "\n")
     
     # col name
     meancol = paste0('mean_', col)
@@ -150,16 +150,16 @@ feat_engineer_v1 <- function(x, model_name = "M1"){
   }
   
   # -- apply helper
-  cat("- Fill numerical missing values \n")
+  if(verbose) cat("- Fill numerical missing values \n")
   x[numerical_features] <- lapply(numerical_features, fill_nan)
   
   # -- features normalization [(x - mean) / range]
-  cat("- Numerical features normalization \n")
+  if(verbose) cat("- Numerical features normalization \n")
   
   # -- helper
   feat_norm <- function(col, mean, range){
     
-    cat("Col =", col, "mean =", mean, "range=", range, "\n")
+    if(verbose) cat("Col =", col, "mean =", mean, "range=", range, "\n")
     
     # normalization
     x[col] <- (x[col] - mean) / range
