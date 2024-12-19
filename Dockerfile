@@ -1,11 +1,24 @@
-# Base image
-FROM rstudio/plumber
 
-# -- update 
-RUN apt-get update && apt-get install libpq5 -y
+# -- base image
+FROM r-base:latest
 
-# Install R packages
-RUN R -e 'install.packages(c("readr", "DBI", "RPostgres", "stringr", "RCurl"))'
+# -- install git & other dependencies
+RUN apt-get update && \
+    apt-get upgrade -y && \
+    apt-get install -y git && \
+    apt-get install -y libpq5 libssl-dev libffi-dev && \
+    apt-get install -y libsodium-dev libpq-dev libssl-dev libcurl4-openssl-dev
+
+# -- install R packages
+RUN R -e 'install.packages(c("plumber", "readr", "DBI", "RPostgres", "stringr", "RCurl", "reticulate", "keras"))'
+
+# -- install python
+RUN R -e 'reticulate::install_python(version = "3.11:latest")'
+
+# -- install keras
+RUN R -e 'keras::install_keras()'
+
+# ------------------------------------------------
 
 # Make a directory in the container
 RUN mkdir /home/api
@@ -20,9 +33,8 @@ WORKDIR /home/api
 # Define port (Render sets 10000 by default)
 EXPOSE 10000
 
-# Run code
-CMD ["plumber.R"]
-
+# Run code to start the API
+CMD Rscript launch_api.R
 
 # -- build docker image:
 # docker build -t rain-forecast-api .
