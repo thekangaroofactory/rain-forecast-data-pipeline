@@ -9,11 +9,6 @@ for(nm in list.files("R", full.names = T, recursive = T))
 rm(nm)
 
 
-# -- define path
-# path <- list(raw = "E:/Datasets/rain-forecast/raw",
-#              schema = "E:/Datasets/rain-forecast/schemas",
-#              model = "E:/Datasets/rain-forecast/models")
-
 # -- define path (to mount for local run)
 path <- list(raw = "/home/data/raw",
              schema = "/home/data/schemas",
@@ -24,9 +19,6 @@ path <- list(raw = "/home/data/raw",
 file <- list (dataset_report = "dataset_report.json",
               mapping_Location = "location_mapping.csv",
               means_by_location = "means_by_location.csv")
-
-
-
 
 
 # -- colClasses (as per read.csv output)
