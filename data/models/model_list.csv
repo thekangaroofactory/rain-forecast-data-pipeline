@@ -1,0 +1,3 @@
+Name,Description,File,Version,Input
+Model_m1,Complete dataset with 142.194 observations from all around Australia,rain_tomorrow_v1.h5,v1,M1_processed_dataset_v1.csv
+Model_m2,Balanced training set with 63.755 observations from all around Australia,rain_tomorrow_v2_equalized.h5,v1,M2_processed_dataset_v1.csv

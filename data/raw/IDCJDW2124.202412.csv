@@ -1,0 +1,28 @@
+"Daily Weather Observations for Sydney, New South Wales for December 2024"
+"Prepared at 05:36 UTC on Wednesday 18 December 2024   IDCJDW2124.202412"
+"Copyright 2003 Commonwealth Bureau of Meteorology"
+"Most observations from Observatory Hill, but some from Fort Denison and Sydney Airport."
+"Sydney Airport is about 10 km to the south of Observatory Hill."
+"Temperature, humidity and rainfall observations are from Sydney (Observatory Hill) {station 066214}"
+"Pressure, cloud, evaporation and sunshine observations are from Sydney Airport AMO {station 066037}"
+"Wind observations are from Fort Denison {station 066022}"
+
+,"Date","Minimum temperature (°C)","Maximum temperature (°C)","Rainfall (mm)","Evaporation (mm)","Sunshine (hours)","Direction of maximum wind gust ","Speed of maximum wind gust (km/h)","Time of maximum wind gust","9am Temperature (°C)","9am relative humidity (%)","9am cloud amount (oktas)","9am wind direction","9am wind speed (km/h)","9am MSL pressure (hPa)","3pm Temperature (°C)","3pm relative humidity (%)","3pm cloud amount (oktas)","3pm wind direction","3pm wind speed (km/h)","3pm MSL pressure (hPa)"
+,2024-12-1,19.8,29.0,1.0,0.8,5.6,SE,76,13:56,24.7,81,5,W,7,1006.9,20.6,93,7,ESE,37,1005.3
+,2024-12-2,19.0,33.3,23.8,7.4,13.3,NE,43,19:22,24.8,69,1,W,11,1009.2,28.5,55,4,E,15,1006.6
+,2024-12-3,20.6,30.0,0.2,12.0,2.6,WNW,59,13:30,26.3,67,7,E,7,1007.4,28.8,51,8,NW,26,1006.2
+,2024-12-4,21.3,26.8,0.2,6.4,9.0,S,44,06:04,22.4,75,7,S,13,1016.2,26.0,65,5,ESE,22,1017.4
+,2024-12-5,20.1,25.8,0,6.8,4.2,E,30,15:29,22.3,79,8,E,6,1021.7,24.9,75,2,E,24,1018.1
+,2024-12-6,21.9,27.5,0,6.8,7.4,E,30,14:13,25.5,81,4,E,15,1018.2,27.3,74,4,E,19,1014.4
+,2024-12-7,21.4,29.3,10.8,,1.6,W,39,22:45,23.5,93,8,NE,6,1010.3,24.8,94,7,WNW,9,1007.5
+,2024-12-8,21.0,28.4,11.8,,5.5,SSE,41,12:49,25.6,81,1,NE,6,1008.7,22.5,78,8,SE,22,1010.8
+,2024-12-9,18.6,24.8,0.4,10.8,,ENE,31,14:53,22.0,72,7,E,15,1015.9,23.4,75,7,NE,17,1013.4
+,2024-12-10,19.9,25.8,0,13.2,10.0,S,52,11:38,21.9,74,3,S,17,1012.7,25.3,64,3,SE,28,1011.4
+,2024-12-11,20.0,26.4,0,8.4,8.6,ENE,41,16:51,22.7,65,7,ESE,9,1011.7,26.3,59,1,E,24,1007.8
+,2024-12-12,17.5,28.1,0,8.0,,ENE,30,17:23,22.5,71,0,WNW,9,1008.0,27.3,60,1,ENE,20,1006.3
+,2024-12-13,21.1,30.3,0,4.2,,SSE,41,20:33,24.6,75,0,W,11,1007.8,27.2,68,2,E,20,1004.9
+,2024-12-14,21.0,29.2,,4.8,,SSE,35,23:19,23.8,72,6,SSW,13,1012.2,27.6,67,1,ESE,19,1010.1
+,2024-12-15,21.5,28.8,0,6.2,,SE,31,14:03,24.1,80,8,SSW,13,1012.0,28.3,60,2,SE,19,1011.7
+,2024-12-16,22.7,29.0,0,5.0,,NE,54,19:13,26.3,76,3,E,7,1015.3,28.1,71,1,ENE,26,1011.5
+,2024-12-17,21.0,32.1,0,11.6,,SSW,69,19:01,25.7,77,3,E,15,1007.8,31.7,50,4,NE,19,1003.9
+,2024-12-18,17.3,,8.8,9.2,,,,,18.2,88,7,SSE,20,1016.7,23.0,53,2,S,31,1018.0

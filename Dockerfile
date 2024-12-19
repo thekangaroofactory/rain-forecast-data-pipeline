@@ -20,10 +20,13 @@ RUN R -e 'keras::install_keras()'
 
 # ------------------------------------------------
 
-# Make a directory in the container
-RUN mkdir /home/api
+# -- Make a directory in the container
+RUN mkdir /home/api /home/data
 
-# Copy code
+# -- Copy files
+COPY data /home/data
+
+# -- Copy code
 COPY R /home/api/R
 COPY *.R /home/api
 
