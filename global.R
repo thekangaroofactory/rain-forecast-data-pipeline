@@ -10,13 +10,13 @@ rm(nm)
 
 
 # -- define path (to mount for local run)
-path <- list(raw = "/home/data/raw",
-             schema = "/home/data/schemas",
-             model = "/home/data/models")
+path <- list(raw = file.path(Sys.getenv("DATA_HOME"), "raw"),
+             schema = file.path(Sys.getenv("DATA_HOME"), "schemas"),
+             model = file.path(Sys.getenv("DATA_HOME"), "models"))
 
 
 # -- filenames
-file <- list (dataset_report = "dataset_report.json",
+filename <- list(dataset_report = "dataset_report.json",
               mapping_Location = "location_mapping.csv",
               means_by_location = "means_by_location.csv")
 

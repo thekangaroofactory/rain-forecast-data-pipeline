@@ -16,7 +16,7 @@ feat_engineer_v1 <- function(x, model_name = "M1", verbose = FALSE){
   # Load dataset report (schema)
   
   cat("- Load dataset schema \n")
-  json_report_url <- file.path(path$schema, model_name, file$dataset_report)
+  json_report_url <- file.path(path$schema, model_name, filename$dataset_report)
   data_schema <- jsonlite::fromJSON(json_report_url)
   
   # -------------------------------------
@@ -40,7 +40,7 @@ feat_engineer_v1 <- function(x, model_name = "M1", verbose = FALSE){
   # Load location mapping
   
   cat("- Load location mapping \n")
-  location_mapping_url <- file.path(path$schema, file$mapping_Location)
+  location_mapping_url <- file.path(path$schema, filename$mapping_Location)
   location_mapping <- read.csv(location_mapping_url, sep = ',')
   
   
@@ -48,7 +48,7 @@ feat_engineer_v1 <- function(x, model_name = "M1", verbose = FALSE){
   # Load mean by location report
   
   cat("- Load mean by location report \n")
-  mean_by_location_url <- file.path(path$schema, model_name, file$means_by_location)
+  mean_by_location_url <- file.path(path$schema, model_name, filename$means_by_location)
   mean_by_loc_df <- read.csv(mean_by_location_url, sep = ',')
   
   
