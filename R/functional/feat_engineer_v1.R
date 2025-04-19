@@ -16,7 +16,7 @@ feat_engineer_v1 <- function(x, model_name = "M1", verbose = FALSE){
   # Load dataset report (schema)
   
   cat("- Load dataset schema \n")
-  json_report_url <- file.path(path$schema, model_name, file$dataset_report)
+  json_report_url <- file.path(path$schema, model_name, filename$dataset_report)
   data_schema <- jsonlite::fromJSON(json_report_url)
   
   # -------------------------------------
@@ -40,7 +40,7 @@ feat_engineer_v1 <- function(x, model_name = "M1", verbose = FALSE){
   # Load location mapping
   
   cat("- Load location mapping \n")
-  location_mapping_url <- file.path(path$schema, file$mapping_Location)
+  location_mapping_url <- file.path(path$schema, filename$mapping_Location)
   location_mapping <- read.csv(location_mapping_url, sep = ',')
   
   
@@ -48,7 +48,7 @@ feat_engineer_v1 <- function(x, model_name = "M1", verbose = FALSE){
   # Load mean by location report
   
   cat("- Load mean by location report \n")
-  mean_by_location_url <- file.path(path$schema, model_name, file$means_by_location)
+  mean_by_location_url <- file.path(path$schema, model_name, filename$means_by_location)
   mean_by_loc_df <- read.csv(mean_by_location_url, sep = ',')
   
   
@@ -66,18 +66,14 @@ feat_engineer_v1 <- function(x, model_name = "M1", verbose = FALSE){
   # -- add columns
   
   # -- rain_today
-  #x$rain_today <- "No"
-  # -- check for cases where no rows meet condition
-  #if(any(x$rain_fall > 0))
-    # -- use which to avoid pb with NA's
-    #x[which(x$rain_fall > 0), ]$rain_today <- "Yes"
+  x$rain_today <- ifelse(x$rain_fall > 0, "Yes", "No")
+  
+  # -- Fixing #10:
+  # In case rain_fall value is mission, rain_today is forced to "No" 
+  # (rain_fall will be forced to 0)
+  x[is.na(x$rain_today), ]$rain_today <- "No"
   
   # -- rain_tomorrow
-  #x$rain_tomorrow <- "No"
-  #x[which(x$rain_today == 'Yes') - 1, ]$rain_tomorrow <- "Yes"
-  #x[dim(x)[1], ]$rain_tomorrow <- "Na"
-  
-  x$rain_today <- ifelse(x$rain_fall > 0, "Yes", "No")
   x$rain_tomorrow <- x[match(x$date + 1, x$date), ]$rain_today
   
   

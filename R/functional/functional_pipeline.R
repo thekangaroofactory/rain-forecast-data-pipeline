@@ -1,6 +1,6 @@
 
 
-functional_pipeline <- function(technical, incremental = TRUE){
+functional_pipeline <- function(technical, incremental = TRUE, simulation = FALSE){
   
   cat("Starting functional pipeline \n")
   
@@ -8,11 +8,12 @@ functional_pipeline <- function(technical, incremental = TRUE){
   functional <- feat_engineer_v1(technical, model_name = "M1")
   
   # -- import / update db
-  import <- db_import("functional", functional)
+  if(!simulation)
+    import <- db_import("functional", functional)
   
   # -- keep only imported rows (create / update)
-  # unless incremental is turned off
-  if(incremental)
+  # unless both incremental and simulation are turned off
+  if(incremental && !simulation)
     functional[functional$observation_id %in% import$row_ids, ]
   else
     functional

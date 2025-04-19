@@ -13,7 +13,8 @@ RUN apt-get update && \
 RUN R -e 'install.packages(c("plumber", "readr", "DBI", "RPostgres", "stringr", "RCurl", "reticulate", "keras"))'
 
 # -- install python
-RUN R -e 'reticulate::install_python(version = "3.11:latest")'
+# Warning: used to be "3.11:latest" but fails (GitHub issue #1792 open)
+RUN R -e 'reticulate::install_python(version = "3.11")'
 
 # -- install keras
 RUN R -e 'keras::install_keras()'

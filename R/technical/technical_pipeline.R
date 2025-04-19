@@ -1,7 +1,7 @@
 
 
 technical_pipeline <- function(station = "IDCJDW2124", year = format(Sys.Date(), "%Y"), month = format(Sys.Date(), "%m"),
-                               incremental = TRUE){
+                               incremental = TRUE, simulation = FALSE){
   
   cat("Starting technical pipeline \n")
   
@@ -12,11 +12,12 @@ technical_pipeline <- function(station = "IDCJDW2124", year = format(Sys.Date(),
   technical <- format_raw_file(path = path$raw, filename)
   
   # -- import into technical table
-  import <- db_import("technical", technical)
+  if(!simulation)
+    import <- db_import("technical", technical)
   
   # -- keep only imported rows (create / update)
-  # unless incremental is turned off
-  if(incremental)
+  # unless both incremental and simutation are turned off
+  if(incremental && !simulation)
     technical[technical$observation_id %in% import$row_ids, ]
   else
     technical
