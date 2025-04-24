@@ -7,7 +7,7 @@ source("./global.R")
 # This is the definition of the API endpoints
 #* @apiTitle Rain Forecast API
 #* @apiDescription Manage Observations & Predictions
-#* @apiVersion 0.9
+#* @apiVersion 1.0.2
 
 
 # -- Raw -----------------------------------------------------------------------
