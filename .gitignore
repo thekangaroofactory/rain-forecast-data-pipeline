@@ -47,3 +47,6 @@ po/*~
 
 # RStudio Connect folder
 rsconnect/
+
+# -- user: .bat (curl to call API)
+*.bat
