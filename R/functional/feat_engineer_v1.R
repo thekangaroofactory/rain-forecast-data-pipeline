@@ -71,7 +71,9 @@ feat_engineer_v1 <- function(x, model_name = "M1", verbose = FALSE){
   # -- Fixing #10:
   # In case rain_fall value is mission, rain_today is forced to "No" 
   # (rain_fall will be forced to 0)
-  x[is.na(x$rain_today), ]$rain_today <- "No"
+  # adding check #16
+  if(any(is.na(x$rain_today)))
+    x[is.na(x$rain_today), ]$rain_today <- "No"
   
   # -- rain_tomorrow
   x$rain_tomorrow <- x[match(x$date + 1, x$date), ]$rain_today
