@@ -41,6 +41,22 @@ download_observations <- function(year = NULL, month = NULL, station = "IDCJDW21
   download <- RCurl::getURL(target_url)
   cat("Download done, size =", object.size(download) ,"\n")
   
+  # -- check size
+  # normal file is about 4kb
+  if(object.size(download) > 5000){
+    cat("[Warning] Download size seems to high! -- checking: \n")
+    
+    # -- check if contains HTML tags (i.e. <>)
+    cat("-- if output contains <> tags:", grepl("<.*>", download), "\n")
+    
+    # -- count occurrences of \n in the output
+    # about 40/41 is a full month, not found will produce > 300
+    nb_lines <- nchar(gsub("[^\n]+", "", download)) + 1
+    cat("-- Nb of lines =", nb_lines, "\n")
+    
+    return(">> Check if the requested month is still available on the BOM website.")}
+  
+
   # -- drop extra line breaks and save to file
   download <- gsub('[\r]','', download)
   
