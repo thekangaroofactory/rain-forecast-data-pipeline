@@ -117,6 +117,10 @@ function(res, station = "IDCJDW2124", year = format(Sys.Date(), "%Y"), month = f
   
   cat("[API] Call to import raw observation file \n")
   
+  # -- Cast into logical
+  # #15 incremental may become a character at this stage
+  incremental <- as.logical(incremental)
+  
   # -- technical pipeline
   technical_df <- technical_pipeline(station, year, month, incremental)
   
