@@ -9,6 +9,10 @@ for(nm in list.files("R", full.names = T, recursive = T))
 rm(nm)
 
 
+# -- authentication
+APIKEY <- Sys.getenv("API_KEY")
+
+
 # -- define path (to mount for local run)
 path <- list(raw = file.path(Sys.getenv("DATA_HOME"), "raw"),
              schema = file.path(Sys.getenv("DATA_HOME"), "schemas"),

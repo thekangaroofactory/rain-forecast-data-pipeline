@@ -7,7 +7,7 @@ source("./global.R")
 # This is the definition of the API endpoints
 #* @apiTitle Rain Forecast API
 #* @apiDescription Manage Observations & Predictions
-#* @apiVersion 0.9
+#* @apiVersion 1.0.2
 
 
 # -- Raw -----------------------------------------------------------------------
@@ -19,7 +19,13 @@ source("./global.R")
 #* @get api/v1/raw-observations
 #* @tag Raw
 
-function(res, station = "IDCJDW2124", check = FALSE){
+function(req, res, station = "IDCJDW2124", check = FALSE){
+  
+  # -- Authentication!
+  if (!"HTTP_X_API_KEY" %in% names(req) || req$HTTP_X_API_KEY != APIKEY) {
+    res$body <- "Unauthorized"
+    res$status <- 401
+    return("Unauthorized API call")}
   
   # -- get list of raw files
   observations <- raw_observations(path = path$raw, station = station, check = check)
@@ -44,8 +50,14 @@ function(res, station = "IDCJDW2124", check = FALSE){
 #* @get api/v1/raw-observation
 #* @tag Raw
 
-function(res, station = "IDCJDW2124", year = format(Sys.Date(), "%Y"), 
+function(req, res, station = "IDCJDW2124", year = format(Sys.Date(), "%Y"), 
          month = format(Sys.Date(), "%m"), check = FALSE){
+  
+  # -- Authentication!
+  if (!"HTTP_X_API_KEY" %in% names(req) || req$HTTP_X_API_KEY != APIKEY) {
+    res$body <- "Unauthorized"
+    res$status <- 401
+    return("Unauthorized API call")}
   
   # -- get list of raw files
   observations <- raw_observations(path = path$raw,
@@ -81,7 +93,13 @@ function(res, station = "IDCJDW2124", year = format(Sys.Date(), "%Y"),
 #* @get api/v1/observations
 #* @tag Observations
 
-function(res, station = "IDCJDW2124", start = NA, end = NA){
+function(req, res, station = "IDCJDW2124", start = NA, end = NA){
+  
+  # -- Authentication!
+  if (!"HTTP_X_API_KEY" %in% names(req) || req$HTTP_X_API_KEY != APIKEY) {
+    res$body <- "Unauthorized"
+    res$status <- 401
+    return("Unauthorized API call")}
   
   cat("[API] Call to get observations \n")
   
@@ -112,10 +130,20 @@ function(res, station = "IDCJDW2124", start = NA, end = NA){
 #* @post api/v1/observations
 #* @tag Observations
 
-function(res, station = "IDCJDW2124", year = format(Sys.Date(), "%Y"), month = format(Sys.Date(), "%m"),
+function(req, res, station = "IDCJDW2124", year = format(Sys.Date(), "%Y"), month = format(Sys.Date(), "%m"),
          incremental = TRUE){
   
+  # -- Authentication!
+  if (!"HTTP_X_API_KEY" %in% names(req) || req$HTTP_X_API_KEY != APIKEY) {
+    res$body <- "Unauthorized"
+    res$status <- 401
+    return("Unauthorized API call")}
+  
   cat("[API] Call to import raw observation file \n")
+  
+  # -- Cast into logical
+  # #15 incremental may become a character at this stage
+  incremental <- as.logical(incremental)
   
   # -- technical pipeline
   technical_df <- technical_pipeline(station, year, month, incremental)
@@ -146,7 +174,13 @@ function(res, station = "IDCJDW2124", year = format(Sys.Date(), "%Y"), month = f
 #* @get api/v1/predictions
 #* @tag Predictions
 
-function(res, station = "IDCJDW2124", model = "M1", start = NA, end = NA){
+function(req, res, station = "IDCJDW2124", model = "M1", start = NA, end = NA){
+  
+  # -- Authentication!
+  if (!"HTTP_X_API_KEY" %in% names(req) || req$HTTP_X_API_KEY != APIKEY) {
+    res$body <- "Unauthorized"
+    res$status <- 401
+    return("Unauthorized API call")}
   
   cat("[API] Call to get predictions \n")
   
