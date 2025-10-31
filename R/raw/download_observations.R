@@ -20,14 +20,14 @@ download_observations <- function(year = NULL, month = NULL, station = "IDCJDW21
   if(is.null(year)){
     
     cat("[INFO] Setting current year as default value \n")
-    year = format(Sys.Date(), "%Y")
+    year <- format(Sys.Date(), "%Y")
     
   }
   
   if(is.null(month)){
     
     cat("[INFO] Setting current month as default value \n")
-    month = format(Sys.Date(), "%m")
+    month <- format(Sys.Date(), "%m")
     
   }
   
@@ -38,7 +38,8 @@ download_observations <- function(year = NULL, month = NULL, station = "IDCJDW21
   cat("Ready to download from", target_url, "\n")
   
   # -- download target url
-  download <- RCurl::getURL(target_url)
+  # Adding option see #22
+  download <- RCurl::getURL(target_url, .opts = RCurl::curlOptions(followlocation = TRUE))
   cat("Download done, size =", object.size(download) ,"\n")
   
   # -- check size
