@@ -7,7 +7,7 @@ source("./global.R")
 # This is the definition of the API endpoints
 #* @apiTitle Rain Forecast API
 #* @apiDescription Manage Observations & Predictions
-#* @apiVersion 1.0.2
+#* @apiVersion 1.0.4
 
 
 # -- Raw -----------------------------------------------------------------------
@@ -22,7 +22,7 @@ source("./global.R")
 function(req, res, station = "IDCJDW2124", check = FALSE){
   
   # -- Authentication!
-  if (!"HTTP_X_API_KEY" %in% names(req) || req$HTTP_X_API_KEY != APIKEY) {
+  if (!"HTTP_X_API_KEY" %in% names(req) || req$HTTP_X_API_KEY != Sys.getenv("API_KEY")) {
     res$body <- "Unauthorized"
     res$status <- 401
     return("Unauthorized API call")}
@@ -54,7 +54,7 @@ function(req, res, station = "IDCJDW2124", year = format(Sys.Date(), "%Y"),
          month = format(Sys.Date(), "%m"), check = FALSE){
   
   # -- Authentication!
-  if (!"HTTP_X_API_KEY" %in% names(req) || req$HTTP_X_API_KEY != APIKEY) {
+  if (!"HTTP_X_API_KEY" %in% names(req) || req$HTTP_X_API_KEY != Sys.getenv("API_KEY")) {
     res$body <- "Unauthorized"
     res$status <- 401
     return("Unauthorized API call")}
@@ -96,7 +96,7 @@ function(req, res, station = "IDCJDW2124", year = format(Sys.Date(), "%Y"),
 function(req, res, station = "IDCJDW2124", start = NA, end = NA){
   
   # -- Authentication!
-  if (!"HTTP_X_API_KEY" %in% names(req) || req$HTTP_X_API_KEY != APIKEY) {
+  if (!"HTTP_X_API_KEY" %in% names(req) || req$HTTP_X_API_KEY != Sys.getenv("API_KEY")) {
     res$body <- "Unauthorized"
     res$status <- 401
     return("Unauthorized API call")}
@@ -134,7 +134,7 @@ function(req, res, station = "IDCJDW2124", year = format(Sys.Date(), "%Y"), mont
          incremental = TRUE){
   
   # -- Authentication!
-  if (!"HTTP_X_API_KEY" %in% names(req) || req$HTTP_X_API_KEY != APIKEY) {
+  if (!"HTTP_X_API_KEY" %in% names(req) || req$HTTP_X_API_KEY != Sys.getenv("API_KEY")) {
     res$body <- "Unauthorized"
     res$status <- 401
     return("Unauthorized API call")}
@@ -177,7 +177,7 @@ function(req, res, station = "IDCJDW2124", year = format(Sys.Date(), "%Y"), mont
 function(req, res, station = "IDCJDW2124", model = "M1", start = NA, end = NA){
   
   # -- Authentication!
-  if (!"HTTP_X_API_KEY" %in% names(req) || req$HTTP_X_API_KEY != APIKEY) {
+  if (!"HTTP_X_API_KEY" %in% names(req) || req$HTTP_X_API_KEY != Sys.getenv("API_KEY")) {
     res$body <- "Unauthorized"
     res$status <- 401
     return("Unauthorized API call")}
